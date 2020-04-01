@@ -1,6 +1,6 @@
 import React from 'react'
-import { Dimensions, Image, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Dimensions, Image, Text, TouchableHighlight, TouchableOpacity, View, Button, Modal } from 'react-native'
+import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
@@ -9,6 +9,7 @@ type Props = {
 }
 class Home extends React.Component<Props> {
     state = {
+        isVisible: false, 
     }
 
 
@@ -31,6 +32,69 @@ class Home extends React.Component<Props> {
 
         return (
             <View style={{flex: 1,}}>
+                <Modal            
+                animationType = {"fade"}  
+                transparent = {true}  
+                visible = {this.state.isVisible}>  
+                {/*All views of Modal*/}  
+                    <View style={{flex:1, backgroundColor:'#000000aa'}}>
+                        <View style={{ backgroundColor:'#FCFCFC', marginHorizontal:18, flex:1, marginTop:75, 
+                        marginBottom:75}}>  
+                            <View>
+                                <View style={{ backgroundColor:'#0064D3', height:57, justifyContent:'center', paddingLeft:10 }}>
+                                    <View>
+                                        <Text style={{ fontSize:16, color:'white' }}>Log in/Daftar</Text>
+                                    </View>
+                                </View>
+                                <View style={{ backgroundColor:'#FCFCFC', marginHorizontal:10, marginTop:15, marginBottom:20 }}>
+                                    <Text>
+                                    Gabung untuk menikmati pemesanan cepat, TIX Point, & promo ekslusif
+                                    </Text>
+                                </View>
+                                <View style={{ marginHorizontal:10 }}>
+                                    <View style={{ paddingLeft:10, borderWidth:1, borderColor:'#D8D9DE', borderRadius:5, marginBottom:15 }}>
+                                        <TextInput placeholder="Nama Ponsel atau Email"/>
+                                    </View>
+                                    <TouchableOpacity>
+                                    <View style={{ marginBottom:10, backgroundColor:'#FCDB00', alignItems:'center', paddingVertical:15, borderRadius:25 }}>
+                                        <Text style={{ color:'#0064D3', fontWeight:'bold'}}>LANJUTKAN</Text>
+                                    </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress = {() => {  
+                            this.setState({ isVisible:!this.state.isVisible})}}>
+                                    <View style={{ marginBottom:10, backgroundColor:'#D8D9DE', alignItems:'center', paddingVertical:15, borderRadius:25 }}>
+                                        <Text style={{ color:'#FCFCFC', fontWeight:'bold'}}>BATALKAN</Text>
+                                    </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ marginBottom:10, alignItems:'center'}}>
+                                    <Text style={{color:'#D8D9DE'}}> ───  atau dengan  ───</Text>
+                                </View>
+                                <View style={{ padding: 10, marginHorizontal:10, borderWidth:1, borderColor:'#D8D9DE' }}>
+                                    <TouchableOpacity>
+                                    <View style={{ flexDirection:'row' }}>
+                                        <View style={{ height:25, width:25 }}>
+                                        <Image source={require('assets/images/gg.png')} style={{ width:25, height:25,}}/>
+                                        </View>
+                                        <Text style={{ color:'#5A637A', paddingLeft:10}}>Google</Text>
+                                    </View>
+                                    </TouchableOpacity>
+                                    <View>
+                                    <Text style={{color:'#D8D9DE'}}> ──────────────────────────────</Text>
+                                    </View>
+                                    <TouchableOpacity>
+                                    <View style={{ flexDirection:'row' }}>
+                                        <View style={{ height:25, width:25 }}>
+                                        <Image source={require('assets/images/fb1.png')} style={{ width:25, height:25,}}/>
+                                        </View>
+                                        <Text style={{ color:'#5A637A', paddingLeft:10}}>Facebook</Text>
+                                    </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View> 
+                    </View>
+                </Modal> 
                 <View style={{ flex: 1, backgroundColor:'#F6F7FB'}}>
                     {/* Navbar */}
                     <View style={{ height:57, backgroundColor:'#0064D3', flexDirection:'row' }}>
@@ -38,7 +102,8 @@ class Home extends React.Component<Props> {
                             <Image source={require('assets/images/tiket.png')} style={{ width:95, height:22,}}/>
                         </View>
                         <View style={{ flex:1/4, alignItems:'center', justifyContent:'center' }}>
-                            <TouchableOpacity>
+                        
+                            <TouchableOpacity onPress = {() => {this.setState({ isVisible: true})}}>
                                 <Text style={{ color:'#fff' }}>MASUK</Text>
                             </TouchableOpacity>
                         </View>
